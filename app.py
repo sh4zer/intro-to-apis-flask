@@ -9,6 +9,7 @@ from flask import (
     request,
     url_for,
 )
+from twilio.rest import Client 
 
 load_dotenv()
 app = Flask(__name__)
@@ -16,14 +17,20 @@ app.secret_key = "ssssh don't tell anyone"
 
 TWILIO_PHONE_NUMBER = os.getenv('TWILIO_PHONE_NUMBER')
 
+client = Client() 
+
 def get_sent_messages():
     # TODO: Make this return a collection of messages that were sent from the number
-    messages = []
+    messages = client.messages.list()
     return messages
 
 def send_message(to, body):
     # TODO: Send the text message
-    pass
+    message = client.messages.create( 
+                              from_='whatsapp:+14155238886',  
+                              body=body,      
+                              to='whatsapp:+573194067212' 
+    )
 
 @app.route("/", methods=["GET"])
 def index():
@@ -36,7 +43,7 @@ def add_compliment():
     receiver = request.values.get('receiver', 'Someone')
     compliment = request.values.get('compliment', 'wonderful')
     to = request.values.get('to')
-    body = f'{sender} says: {receiver} is {compliment}. See more compliments at {request.url_root}'
+    body = f'{sender} says: {receiver} is {compliment}. See more compliments'
     send_message(to, body)
     flash('Your message was successfully sent')
     return redirect(url_for('index'))

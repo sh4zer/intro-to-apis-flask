@@ -52,7 +52,7 @@ MAIN CSS
 ************************************/
 body {
  font-family: 'Rubik', sans-serif;
- background-color: #3498db;
+ background-color: #074e7e;
  color: rgba(0, 0, 0, .88);
  line-height: 1.5;
  display: flex;
@@ -63,7 +63,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
  text-transform: uppercase;
- color: #20325C;
+ color: #eef0f7;
 }
 
 h1 {
